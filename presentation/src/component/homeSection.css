@@ -1,0 +1,58 @@
+/* Container styling for the Home section */
+.home-container {
+    height: 400px;
+    width: 550px;
+    border-radius: 40px;
+    margin: 90px auto;
+    box-shadow: 0px 1px 11px #7C7676; /* Light shadow for depth */
+    background-color: yellow; /* Yellow background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Title styling for the Service section */
+.service h1 {
+    font-size: 40px;
+    color: #333; /* Dark color for better readability */
+}
+
+/* Input field styling for the Service section */
+.service input {
+    border-radius: 10px; /* Rounded corners */
+    padding: 10px 15px; /* Adjusted padding for better fit */
+    text-align: center;
+    border: 1px solid #ddd; /* Light border color */
+    background-color: white; /* White background */
+    color: #333; /* Dark text color */
+    font-size: 16px; /* Adjusted font size */
+    box-sizing: border-box; /* Ensure padding doesn't affect width */
+    margin-bottom: 10px; /* Space between inputs */
+}
+
+.service input:focus {
+    border-color: #ffcc00; /* Yellow highlight border color on focus */
+    outline: none; /* Remove default outline */
+}
+
+/* Button styling for the Service section */
+.service button {
+    background-color: #ffcc00; /* Yellow background */
+    border-radius: 40px; /* Rounded corners */
+    padding: 10px 20px; /* Adjusted padding for better fit */
+    text-align: center;
+    border: none; /* Remove default border */
+    background-image: linear-gradient(to right, #ffcc00 0%, #e6b800 51%, #ffcc00 100%);
+    background-size: 200% auto;
+    color: #fff; /* White text color */
+    font-family: 'PT Sans Narrow', sans-serif;
+    font-size: 16px; /* Adjusted font size */
+    cursor: pointer; /* Pointer cursor on hover */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Light shadow for depth */
+    transition: background-position 0.5s, color 0.3s; /* Smooth transitions */
+}
+
+.service button:hover {
+    background-position: right center; /* Slide effect */
+    color: black; /* Dark text color on hover */
+}

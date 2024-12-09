@@ -1,0 +1,76 @@
+import React, { useEffect, useState } from 'react';
+import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import 'leaflet/dist/leaflet.css';
+
+const Map = () => {
+  const [position, setPosition] = useState(null);
+  const [error, setError] = useState(null);
+  const [showNearbyLocation, setShowNearbyLocation] = useState(false);
+
+  // Define a nearby location relative to the current position
+  const getNearbyLocation = (lat, lng) => [lat + 0.01, lng + 0.01]; // Adjust offset as needed
+
+  useEffect(() => {
+    const handleSuccess = (position) => {
+      const { latitude, longitude } = position.coords;
+      console.log(`Latitude: ${latitude}, Longitude: ${longitude}`);
+      setPosition([latitude, longitude]);
+    };
+
+    const handleError = (error) => {
+      setError(error.message);
+    };
+
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(handleSuccess, handleError);
+    } else {
+      setError('Geolocation is not supported by this browser.');
+    }
+  }, []);
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
+
+  if (position === null) {
+    return <div>Loading...</div>;
+  }
+
+  const currentLocation = position;
+  const nearbyLocation = getNearbyLocation(currentLocation[0], currentLocation[1]);
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
+      <div style={{ flex: 1 }}>
+        <MapContainer center={currentLocation} zoom={13} style={{ height: '80%', width: '100%' }}>
+          <TileLayer
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+          />
+          {/* Marker for the current location */}
+          <Marker position={currentLocation}>
+            <Popup>
+              You are here
+            </Popup>
+          </Marker>
+          {/* Marker for the nearby location */}
+          {showNearbyLocation && (
+            <Marker position={nearbyLocation}>
+              <Popup>
+                Nearby location
+              </Popup>
+            </Marker>
+          )}
+        </MapContainer>
+      </div>
+      <button
+        onClick={() => setShowNearbyLocation((prev) => !prev)}
+        style={{ padding: '10px', margin: '10px', alignSelf: 'center' }}
+      >
+        {showNearbyLocation ? 'Hide Nearby Location' : 'Show Nearby Location'}
+      </button>
+    </div>
+  );
+};
+
+export default Map;
